@@ -70,18 +70,6 @@ func (c *Client) writeToDB(in chan *Metric, out chan error) {
 	out <- nil
 }
 
-func (c *Client) saveMetric(db *gorm.DB, metric *Metric) error {
-	fmt.Printf("%v\n", *metric)
-	if metric == nil {
-		return fmt.Errorf("Metric can't be nil %v", metric)
-	}
-
-	if err := db.Save(&metric).Error; err != nil {
-		return err
-	}
-	return nil
-}
-
 // Name for Cockroach Client
 func (c Client) Name() string {
 	return "CockroachDB"
