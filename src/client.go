@@ -102,9 +102,7 @@ func newCockroachClient() *Client {
 	sslkey := os.Getenv("SSL_KEY")
 	sslcert := os.Getenv("SSL_CERT")
 	connString := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?ssl=true&sslmode=require&sslrootcert=%s&sslkey=%s&sslcert=%s", user, password, host, port, database, sslrootcert, sslkey, sslcert)
-	fmt.Println(connString)
-	const addr = "postgresql://maxroach:root@localhost:26257/prometheus_backup?ssl=true&sslmode=require&sslrootcert=$HOME/certs/ca.crt&sslkey=$HOME/certs/client.maxroach.key&sslcert=certs/client.maxroach.crt"
-	db, err := gorm.Open("postgres", addr)
+	db, err := gorm.Open("postgres", connString)
 	if err != nil {
 		log.Fatal(err)
 	}
